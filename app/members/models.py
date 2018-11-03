@@ -4,7 +4,8 @@ from django.contrib.auth.models import AbstractUser
 
 class User(AbstractUser):
     img_profile = models.ImageField(
-        upload_to="user"
+        upload_to="user",
+        blank=True,
     )
     relation_users = models.ManyToManyField(
         'self',
@@ -13,6 +14,8 @@ class User(AbstractUser):
     mention = models.ForeignKey(
         'posts.Comment',
         on_delete=models.CASCADE,
+        blank=True,
+        null=True,
     )
 
 

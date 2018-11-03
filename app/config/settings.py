@@ -44,6 +44,7 @@ AUTH_USER_MODEL = 'members.User'
 # Application definition
 
 INSTALLED_APPS = [
+    'posts',
     'members',
 
     'django.contrib.admin',
