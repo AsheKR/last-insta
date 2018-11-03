@@ -18,7 +18,7 @@ pip install -r requirements.txt
 
 - User
     - img_profile
-    - followers(User)
+    - relation_user(User)
     - mention(Comment)
 
 - Post
