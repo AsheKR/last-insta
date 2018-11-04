@@ -35,3 +35,9 @@ pip install -r requirements.txt
 - HashTag
     - tag_name
     
+## Template
+
+- PostView
+- TagSearch
+- Profile
+- Login / Logout / Signup
