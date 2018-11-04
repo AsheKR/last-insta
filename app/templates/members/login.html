@@ -1,0 +1,46 @@
+{% load static %}
+
+<!doctype html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Instagram - Login</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/floating-labels.css' %}">
+</head>
+<body>
+<form class="form-signin" action="{% url 'members:login_view' %}" method="POST">
+    {% csrf_token %}
+    <div class="text-center mb-4">
+        <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+    </div>
+
+    {% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+    <div class="alert alert-primary" role="alert">
+        {{ error }}
+    </div>
+    {% endfor %}
+    {% endif %}
+
+    {% for field in form %}
+    <div class="form-label-group">
+        {{ field }}
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    </div>
+    {% endfor %}
+
+    <div class="checkbox mb-3">
+        <label>
+            <input type="checkbox" value="remember-me"> Remember me
+        </label>
+    </div>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <p class="mt-5 mb-3 text-muted text-center">© 띠요오오옹</p>
+</form>
+</body>
+</html>

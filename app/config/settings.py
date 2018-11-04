@@ -45,6 +45,8 @@ ALLOWED_HOSTS = []
 AUTH_USER_MODEL = 'members.User'
 # Application definition
 
+LOGIN_URL = "members:login_view"
+
 INSTALLED_APPS = [
     'posts',
     'members',

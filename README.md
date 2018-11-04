@@ -37,7 +37,8 @@ pip install -r requirements.txt
     
 ## Template
 
-- PostView
+- PostView / PostDetail
+- PostCreate / Modify
 - TagSearch
 - Profile
 - Login / Logout / Signup
