@@ -4,6 +4,34 @@ from django.contrib.auth import get_user_model, authenticate
 User = get_user_model()
 
 
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = [
+            'username',
+            'email',
+            'img_profile',
+        ]
+
+        widgets = {
+            'username': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'email': forms.EmailInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'img_profile': forms.ClearableFileInput(
+                attrs={
+                    'class': 'form-control-file',
+                }
+            )
+        }
+
+
 class LoginForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

@@ -1,10 +1,12 @@
 {% extends 'members/form_base.html' %}
+{% load static %}
 
 {% block content %}
-<form class="form-signin" action="{% url 'members:login_view' %}" method="POST">
+<form class="form-signin" action="{% url 'members:profile' %}" method="POST" enctype="multipart/form-data">
+    <a href="{% url 'posts:post_list' %}"><img class="mb-4 text-center" src="{% static 'images/instagram.jpeg' %}" alt="" width="72" height="72"></a>
     {% csrf_token %}
-    <div class="text-center mb-4">
-        <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+    <div class="mb-4">
+        <h1 class="h3 mb-3 font-weight-normal">Profile</h1>
     </div>
 
     {% if form.non_field_errors %}
@@ -21,13 +23,7 @@
         {{ field }}
     </div>
     {% endfor %}
-
-    <div class="checkbox mb-3">
-        <label>
-            <input type="checkbox" value="remember-me"> Remember me
-        </label>
-    </div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">수정</button>
     <p class="mt-5 mb-3 text-muted text-center">© 띠요오오옹</p>
 </form>
 {% endblock %}
