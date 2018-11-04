@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
+from posts.forms import PostCreateForm
 from posts.models import Post
 
 
@@ -13,3 +14,21 @@ def post_list(request):
     }
 
     return render(request, 'posts/post_list.html', context)
+
+
+@login_required
+def post_create(request):
+    if request.method == 'POST':
+        form = PostCreateForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            post = form.save(author=request.user)
+            return redirect('posts:post_list')
+    else:
+        form = PostCreateForm()
+
+    context = {
+        'form': form
+    }
+
+    return render(request, 'posts/post_create.html', context)
