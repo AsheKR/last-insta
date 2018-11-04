@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block content %}
 <div class="row">
@@ -11,6 +12,10 @@
                  data-holder-rendered="true">
             <div class="card-body">
                 <p class="card-text">{{ post.author }}</p>
+                <input type="button" class="like btn btn-sm btn-warning" name="{{ post.pk }}" value="Like">
+                <span id="count-{{ post.id }}">{{ post.like_users.count }}개</span>
+
+
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
                         <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
@@ -18,11 +23,30 @@
                         <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
                         {% endif %}
                     </div>
-                    <small class="text-muted">9 mins</small>
+                    <small class="text-muted">{{ post.created_at|naturaltime }}</small>
                 </div>
             </div>
         </div>
     </div>
     {% endfor %}
 </div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+    $(".like").click(function(){
+        var pk = $(this).attr('name')
+        $.ajax({
+            type:"POST",
+            url: "{% url 'posts:post_like' %}",
+            data: {'pk': pk, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+            dataType: "json",
+            success: function(response){
+                $("#count-"+pk).html(response.like_count+"개");
+                var users = $("#like-user-"+pk).text();
+            }
+        })
+    })
+
+
+</script>
 {% endblock %}

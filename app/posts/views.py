@@ -1,5 +1,8 @@
+import json
+
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
 
 from posts.forms import PostCreateForm
 from posts.models import Post
@@ -32,3 +35,16 @@ def post_create(request):
     }
 
     return render(request, 'posts/post_create.html', context)
+
+
+@login_required
+def post_like(request):
+    pk = request.POST.get('pk')
+    post = get_object_or_404(Post, pk=pk)
+    post.like_toggle(request.user)
+
+    context = {
+        'like_count': post.like_users.count(),
+    }
+
+    return HttpResponse(json.dumps(context), content_type='application/json')

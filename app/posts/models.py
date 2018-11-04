@@ -20,7 +20,13 @@ class Post(models.Model):
     modified_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ['-pk',]
+        ordering = ['-pk', ]
+
+    def like_toggle(self, user):
+        post_like, created = PostLike.objects.get_or_create(post=self, author=user)
+        if not created:
+            post_like.delete()
+        return post_like
 
 
 class Comment(models.Model):
